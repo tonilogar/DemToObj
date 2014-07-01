@@ -21,8 +21,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    ReadCoordinates_Txt fileTxt;
-    CreateObj obj;
+
 };
 
 #endif // MAINWINDOW_H

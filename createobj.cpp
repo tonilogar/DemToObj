@@ -34,36 +34,42 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
     ReadCoordinates_Txt *_readCoordi=new ReadCoordinates_Txt(this);
     QVariantMap _datosMet=_readCoordi->readFileMetTxt(pathFileTxtCoordenadas);
     qDebug()<< _datosMet << "_datosMet";
-    double totalColumna=_datosMet.value("NCOLS").toDouble();
-    double totalFila=_datosMet.value("NROWS").toDouble();
-    double distancia=_datosMet.value("CELLSIZE").toDouble();
-    double x=0;
-    double y=0;
-    double z;
-    double totalColumnaObj=totalColumna;
+    int totalColumna=_datosMet.value("NCOLS").toInt();
+    int totalFila=_datosMet.value("NROWS").toInt();
+    float distancia=_datosMet.value("CELLSIZE").toFloat();
+    int nData=_datosMet.value("NODATAVALUE").toInt();
+    float x=0;
+    float y=0;
+    float z;
+    float totalColumnaObj=totalColumna;
 
     //UV
-    double xVt=-1;
-    double yVt=1;
-    double xVtCorte=0;
-    double yVtCorte=0;
+    float xVt=-1;
+    float yVt=1;
+    float xVtCorte=0;
+    float yVtCorte=0;
 
     //f
-    double xa=1;
-    double xb=xa+1;
+    float xa=1;
+    float xb=xa+1;
 
-    double ya=xa+totalColumna;
-    double yb=xb+totalColumna;
-    QStringList listadoZ=_datosMet.value("LISTCOORZ").toStringList();
+    float ya=xa+totalColumna;
+    float yb=xb+totalColumna;
+
     outficheroObj <<"mtllib plane.mtl" << endl;
     outficheroObj <<"o Plane" << endl;
-    foreach(QString element, listadoZ)
+
+    QList <float *> listaDeAlturas= _readCoordi->getListPunteroFloatZ_X();
+
+    foreach(float *element, listaDeAlturas)
     {
-        z=element.toDouble();
-        if(z==_datosMet.value("NODATAVALUE").toDouble())
-                {
-                    z=0;
-                }
+        z=*element;
+        qDebug()<< *element << "*element";
+//        if(z==nData)
+//                {
+//                    z=0;
+//                }
+        qDebug()<< z << "*element";
         outficheroObj <<"v "<< x << " "<< z << " "<< y << endl;
         qDebug()<< x << "x";
         qDebug()<< distancia << "distancia";
@@ -75,36 +81,36 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
             y++;
         }
  }
-//    foreach(QString element, listadoZ)
-//    {
-//        outficheroObj <<"vt "<< xVt <<" "<< yVt << endl;
-//        xVtCorte=xVt/totalColumna;
-//        //xVtCorte=xVt/(totalColumna-1);
-//        xVt=xVt-xVtCorte;
+    foreach(float *element, listaDeAlturas)
+    {
+        outficheroObj <<"vt "<< xVt <<" "<< yVt << endl;
+        xVtCorte=xVt/totalColumna;
+        //xVtCorte=xVt/(totalColumna-1);
+        xVt=xVt-xVtCorte;
 
-//        yVtCorte=yVt/totalFila;
-//        yVt=yVt-yVtCorte;
+        yVtCorte=yVt/totalFila;
+        yVt=yVt-yVtCorte;
 
-// }
-//    outficheroObj <<"usemtl Material.001"<< endl;
-//    outficheroObj <<"s off"<< endl;
+ }
+    outficheroObj <<"usemtl Material.001"<< endl;
+    outficheroObj <<"s off"<< endl;
 
-//    for(int i=0; i<(totalColumna-1)*(totalFila-1); i++)
-//    {
-//       outficheroObj <<"f "<< xa<<"/"<< xa <<" "<< xb<<"/"<< xb <<" "<< yb<<"/"<< yb <<" "<< ya<<"/"<< ya<< endl;
-//        xa++;
-//        xb++;
-//        ya++;
-//        yb++;
-//       if(xa==totalColumnaObj)
-//       {
-//           totalColumnaObj=totalColumnaObj+totalColumnaObj;
-//           xa++;
-//           xb++;
-//           ya++;
-//           yb++;
-//}
-//    }
+    for(int i=0; i<(totalColumna-1)*(totalFila-1); i++)
+    {
+       outficheroObj <<"f "<< xa<<"/"<< xa <<" "<< xb<<"/"<< xb <<" "<< yb<<"/"<< yb <<" "<< ya<<"/"<< ya<< endl;
+        xa++;
+        xb++;
+        ya++;
+        yb++;
+       if(xa==totalColumnaObj)
+       {
+           totalColumnaObj=totalColumnaObj+totalColumnaObj;
+           xa++;
+           xb++;
+           ya++;
+           yb++;
+}
+    }
 ficheroObj.close();
  qDebug()<< "obj creado";
 }

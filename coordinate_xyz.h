@@ -7,25 +7,25 @@ class Coordinate_XYZ : public QObject
 {
     Q_OBJECT
 public:
-    explicit Coordinate_XYZ(QObject *parent=0,double *coordinate_X=0,
-                            double *coordinate_Y=0, double *coordinate_Z=0 );
+    explicit Coordinate_XYZ(QObject *parent=0,float *coordinate_X=0,
+                            float *coordinate_Y=0, float *coordinate_Z=0 );
 //Getters
-    double getCoordinate_X();
-    double getCoordinate_Y();
-    double getCoordinate_Z();
+    float getCoordinate_X();
+    float getCoordinate_Y();
+    float getCoordinate_Z();
 signals:
 
 public slots:
 //Setters
-    void setCoordinate_X(double *coordinate_X);
-    void setCoordinate_Y(double *coordinate_Y);
-    void setCoordinate_Z(double *coordinate_Z);
+    void setCoordinate_X(float *coordinate_X);
+    void setCoordinate_Y(float *coordinate_Y);
+    void setCoordinate_Z(float *coordinate_Z);
 
 
 private:
-    double *_coordinate_X;
-    double *_coordinate_Y;
-    double *_coordinate_Z;
+    float *_coordinate_X;
+    float *_coordinate_Y;
+    float *_coordinate_Z;
 
 
 };

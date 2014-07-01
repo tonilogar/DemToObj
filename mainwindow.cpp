@@ -32,7 +32,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
+    ReadCoordinates_Txt fileTxt;
+    CreateObj obj;
 //fileTxt.readFileMetTxt("E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//COORDENADES.TXT");
 //qDebug()<< datosMetTxt.value("NODATAVALUE").toString();
-obj.createObj("E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//DemToObj//COORDENADESCENTER.TXT","E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//DemToObj//COORDENADESCENTER.obj");
+obj.createObj("E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//COORDENADES.TXT","E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//COORDENADES.obj");
 }

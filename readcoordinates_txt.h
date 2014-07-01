@@ -14,21 +14,19 @@ public:
     explicit ReadCoordinates_Txt(QObject *parent = 0);
     QVariantMap readFileMetTxt(QString pathFileTxtCoordenadas);
 
+//Getters
+QList <float *> getListPunteroFloatZ_X();
+
 
 signals:
 
 public slots:
-
+//Setters
+void setListPunteroFloatZ_X(QList <float *> listFloatZ);
 
 private:
-//    int   _nCols;
-//    int   _nRows;
-//    double _xLlcenter;
-//    double _yLlcenter;
-//    float _cellSize;
-//    int   _noDataValue;
-//    QStringList _coordinateZ;
 
+QList <float *> _listFloatZ;
 };
 
 #endif // READCOORDINATES_TXT_H
