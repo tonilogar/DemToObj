@@ -76,24 +76,37 @@ QVariantMap ReadCoordinates_Txt::readFileMetTxt(QString pathFileTxtCoordenadas)
     datosMetTxt.insert("NODATAVALUE",_noDataValue);
 
 
+    QString elemento;
     _listFloatZ;
     float *_punteroZ;
     while(!outficheroAsci.atEnd())
     {
-        outficheroAsci >> *_punteroZ;
+        outficheroAsci >> elemento;
+        elemento=elemento.replace("	"," ");//Cambio los tabuladores por espacios
+        elemento=elemento.simplified();//Eliminar espacios en blanco del principio y del final cambio los elementos considerados como espacios por espacios
+        elemento=elemento.replace(",",".");//Cambio la comas por puntos
+        if(elemento==noData)
+        {
+            elemento="0";
+        }
+        qDebug()<< elemento <<"uno por uno elemento";
+        if(!elemento.size()==0)
+        {
+        *_punteroZ=elemento.toFloat();
+        qDebug()<< *_punteroZ <<"*_punteroZ";
         _listFloatZ << _punteroZ;
-
-}
+        }
+    }
     ficheroAsci.close();
     return datosMetTxt;
 }
 
 QList <float *> ReadCoordinates_Txt::getListPunteroFloatZ_X()
 {
-return _listFloatZ;
+    return _listFloatZ;
 }
 
 void ReadCoordinates_Txt::setListPunteroFloatZ_X(QList <float *> listFloatZ)
 {
- _listFloatZ=listFloatZ;
+    _listFloatZ=listFloatZ;
 }
