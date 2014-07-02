@@ -59,11 +59,11 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
     outficheroObj <<"mtllib plane.mtl" << endl;
     outficheroObj <<"o Plane" << endl;
 
-    QList <float *> listaDeAlturas=_readCoordi->getListPunteroFloatZ_X();
+    QList <float> listaDeAlturas=_readCoordi->getListPunteroFloatZ_X();
 
-    foreach(float *element, listaDeAlturas)
+    foreach(float element, listaDeAlturas)
     {
-        z=*element;
+        z=element;
         qDebug()<< z << "z";
         outficheroObj <<"v "<< x << " "<< z << " "<< y << endl;
         x=x+distancia;
@@ -73,7 +73,7 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
             y=y+distancia;
         }
  }
-    foreach(float *element, listaDeAlturas)
+    foreach(float element, listaDeAlturas)
     {
         outficheroObj <<"vt "<< xVt <<" "<< yVt << endl;
         xVtCorte=xVt/totalColumna;

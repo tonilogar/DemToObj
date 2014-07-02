@@ -78,7 +78,7 @@ QVariantMap ReadCoordinates_Txt::readFileMetTxt(QString pathFileTxtCoordenadas)
 
     QString elemento;
     _listFloatZ;
-    float *_punteroZ;
+    float _punteroZ;
     while(!outficheroAsci.atEnd())
     {
         outficheroAsci >> elemento;
@@ -92,8 +92,8 @@ QVariantMap ReadCoordinates_Txt::readFileMetTxt(QString pathFileTxtCoordenadas)
         qDebug()<< elemento <<"uno por uno elemento";
         if(!elemento.size()==0)
         {
-        *_punteroZ=elemento.toFloat();
-        qDebug()<< *_punteroZ <<"*_punteroZ";
+        _punteroZ=elemento.toFloat();
+        qDebug()<< _punteroZ <<"*_punteroZ";
         _listFloatZ << _punteroZ;
         }
     }
@@ -101,12 +101,12 @@ QVariantMap ReadCoordinates_Txt::readFileMetTxt(QString pathFileTxtCoordenadas)
     return datosMetTxt;
 }
 
-QList <float *> ReadCoordinates_Txt::getListPunteroFloatZ_X()
+QList <float> ReadCoordinates_Txt::getListPunteroFloatZ_X()
 {
     return _listFloatZ;
 }
 
-void ReadCoordinates_Txt::setListPunteroFloatZ_X(QList <float *> listFloatZ)
+void ReadCoordinates_Txt::setListPunteroFloatZ_X(QList <float> listFloatZ)
 {
     _listFloatZ=listFloatZ;
 }

@@ -15,18 +15,18 @@ public:
     QVariantMap readFileMetTxt(QString pathFileTxtCoordenadas);
 
 //Getters
-QList <float *> getListPunteroFloatZ_X();
+QList <float> getListPunteroFloatZ_X();
 
 
 signals:
 
 public slots:
 //Setters
-void setListPunteroFloatZ_X(QList <float *> listFloatZ);
+void setListPunteroFloatZ_X(QList <float> listFloatZ);
 
 private:
 
-QList <float *> _listFloatZ;
+QList <float> _listFloatZ;
 };
 
 #endif // READCOORDINATES_TXT_H
