@@ -19,6 +19,7 @@
 #include <QStringList>
 #include <QStringList>
 #include <QList>
+#include <math.h>
 CreateObj::CreateObj(QObject *parent) :
     QObject(parent)
 {
@@ -38,16 +39,13 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
     int totalFila=_datosMet.value("NROWS").toInt();
     float distancia=_datosMet.value("CELLSIZE").toFloat();
     int nData=_datosMet.value("NODATAVALUE").toInt();
+    int verticesTotales=totalColumna*totalFila;
     float x=0;
     float y=0;
     float z;
     float totalColumnaObj=totalColumna;
 
-    //UV
-    float xVt=-1;
-    float yVt=1;
-    float xVtCorte=0;
-    float yVtCorte=0;
+
 
     //f
     float xa=1;
@@ -72,37 +70,51 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
             x=0;
             y=y+distancia;
         }
- }
-    foreach(float element, listaDeAlturas)
+    }
+
+
+
+
+
+    //UV
+    double uVx=0;
+    double uVy=1;
+    qDebug() <<  uVx << "uVx";
+    qDebug() <<  uVy << "uVy";
+
+
+
+    for (double i=totalFila ; i >= 0; i--)
     {
-        outficheroObj <<"vt "<< xVt <<" "<< yVt << endl;
-        xVtCorte=xVt/totalColumna;
-        //xVtCorte=xVt/(totalColumna-1);
-        xVt=xVt-xVtCorte;
+        uVy=i/totalFila;
+        for (double j=0; j < totalColumna ; j++)//Mientras que f sea
+        {
+            uVx=j/totalColumna;
 
-        yVtCorte=yVt/totalFila;
-        yVt=yVt-yVtCorte;
+            outficheroObj << "vt "<< uVx << " " << uVy << " "<< endl; //añado al fichero obj
+        }
+    }
 
- }
+
+
+
     outficheroObj <<"usemtl Material.001"<< endl;
     outficheroObj <<"s off"<< endl;
-
-    for(int i=0; i<(totalColumna-1)*(totalFila-1); i++)
+    int vertice = 1;
+    for (int i=totalColumna ; i < verticesTotales; i++)
     {
-       outficheroObj <<"f "<< xa<<"/"<< xa <<" "<< xb<<"/"<< xb <<" "<< yb<<"/"<< yb <<" "<< ya<<"/"<< ya<< endl;
-        xa++;
-        xb++;
-        ya++;
-        yb++;
-       if(xa==totalColumnaObj)
-       {
-           totalColumnaObj=totalColumnaObj+totalColumnaObj;
-           xa++;
-           xb++;
-           ya++;
-           yb++;
-}
+        for (int f=1; f<totalColumna ; f++)//Mientras que f sea
+        {
+            i++;
+            outficheroObj << "f "<< vertice << "/" << vertice << " "; //añado al fichero obj
+            vertice = vertice+1;
+            outficheroObj << vertice << "/" << vertice  << " "<< (vertice+totalColumna) << "/" << (vertice+totalColumna) << " "<< (vertice+totalColumna-1)<< "/" << (vertice+totalColumna-1) <<  endl;
+            qDebug() <<  f << "f";
+            qDebug() <<  vertice << "vertice";
+        }
+        vertice = vertice+1; // sumo 1 para pasar al vertice de la siguiente fila
     }
-ficheroObj.close();
- qDebug()<< "obj creado";
+
+    ficheroObj.close();
+    qDebug()<< "obj creado";
 }
