@@ -23,6 +23,8 @@
 CreateObj::CreateObj(QObject *parent) :
     QObject(parent)
 {
+    column=0;
+    fila=0;
 }
 void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
 {
@@ -43,26 +45,22 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
     float x=0;
     float y=0;
     float z;
-    float totalColumnaObj=totalColumna;
 
 
 
     //f
     float xa=1;
     float xb=xa+1;
-
     float ya=xa+totalColumna;
     float yb=xb+totalColumna;
-
     outficheroObj <<"mtllib plane.mtl" << endl;
     outficheroObj <<"o Plane" << endl;
-
     QList <float> listaDeAlturas=_readCoordi->getListPunteroFloatZ_X();
 
     foreach(float element, listaDeAlturas)
     {
         z=element;
-        qDebug()<< z << "z";
+        //qDebug()<< z << "z";
         outficheroObj <<"v "<< x << " "<< z << " "<< y << endl;
         x=x+distancia;
         if(x==totalColumna*distancia)
@@ -72,32 +70,36 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
         }
     }
 
-
-
-
-
     //UV
     double uVx=0;
     double uVy=1;
-    qDebug() <<  uVx << "uVx";
-    qDebug() <<  uVy << "uVy";
-
-
-
-    for (double i=totalFila ; i >= 0; i--)
+    //qDebug() <<  uVx << "uVx";
+    //qDebug() <<  uVy << "uVy";
+    for (double i=totalFila ; i > 0; i--)
     {
-        uVy=i/totalFila;
+        if(uVy<=0)
+        {
+         uVy=1;
+        }
+        uVy=uVy-fila;
+        fila=1.00000/(totalFila-1);
         for (double j=0; j < totalColumna ; j++)//Mientras que f sea
         {
-            uVx=j/totalColumna;
-
+            if(uVx>=1)
+            {
+             uVx=0;
+             outficheroObj << "vt "<< uVx << " " << uVy << " "<< endl; //añado al fichero obj
+            }
+            else
+            {
+            uVx=uVx+column;
+            column=1.00000/(totalColumna-1);
             outficheroObj << "vt "<< uVx << " " << uVy << " "<< endl; //añado al fichero obj
+            }
         }
     }
 
-
-
-
+    //UV Combinar vertices y coordenadas de mapeado
     outficheroObj <<"usemtl Material.001"<< endl;
     outficheroObj <<"s off"<< endl;
     int vertice = 1;
@@ -109,8 +111,8 @@ void CreateObj::createObj(QString pathFileTxtCoordenadas,QString pathFileObj)
             outficheroObj << "f "<< vertice << "/" << vertice << " "; //añado al fichero obj
             vertice = vertice+1;
             outficheroObj << vertice << "/" << vertice  << " "<< (vertice+totalColumna) << "/" << (vertice+totalColumna) << " "<< (vertice+totalColumna-1)<< "/" << (vertice+totalColumna-1) <<  endl;
-            qDebug() <<  f << "f";
-            qDebug() <<  vertice << "vertice";
+            //qDebug() <<  f << "f";
+            //qDebug() <<  vertice << "vertice";
         }
         vertice = vertice+1; // sumo 1 para pasar al vertice de la siguiente fila
     }

@@ -17,6 +17,9 @@ public:
 signals:
 
 public slots:
+private:
+    double column;
+    double fila;
 
 };
 

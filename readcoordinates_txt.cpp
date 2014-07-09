@@ -34,37 +34,37 @@ QVariantMap ReadCoordinates_Txt::readFileMetTxt(QString pathFileTxtCoordenadas)
     QString numeroColumnas = outficheroAsci.readLine().replace("NCOLS","");//Leo la primera linea
     numeroColumnas = numeroColumnas.trimmed();//Elimino espacios en blanco al principio y final de la cadena
     int _nCols=numeroColumnas.toInt();
-    qDebug()<< _nCols <<"_nCols";
+    //qDebug()<< _nCols <<"_nCols";
     datosMetTxt.insert("NCOLS",_nCols);
 
     //Asignanar valor a la variable _nrows
     QString numeroFilas = outficheroAsci.readLine().replace("NROWS ","");
     numeroFilas = numeroFilas.trimmed();
     int _nRows=numeroFilas.toInt();
-    qDebug()<< _nRows <<"_nRows";
+    //qDebug()<< _nRows <<"_nRows";
     datosMetTxt.insert("NROWS",_nRows);
 
     //Asignanar valor a la variable _nrows _xLlcenter
     QString coordenadasPixelX = outficheroAsci.readLine().replace("XLLCENTER ","");
     coordenadasPixelX = coordenadasPixelX.trimmed();
-    qDebug()<< coordenadasPixelX <<"_coordenadasPixelX";
+    //qDebug()<< coordenadasPixelX <<"_coordenadasPixelX";
     float _xLlcenter=coordenadasPixelX.toFloat();
-    qDebug()<< _xLlcenter <<"_xLlcenter";
+    //qDebug()<< _xLlcenter <<"_xLlcenter";
     datosMetTxt.insert("XLLCENTER",_xLlcenter);
 
     //Asignanar valor a la variable _nrows _yLlcenter
     QString coordenadasPixelY = outficheroAsci.readLine().replace("YLLCENTER ","");
     coordenadasPixelY = coordenadasPixelY.trimmed();
-    qDebug()<< coordenadasPixelY <<"coordenadasPixelY";
+    //qDebug()<< coordenadasPixelY <<"coordenadasPixelY";
     float _yLlcenter=coordenadasPixelY.toFloat();
-    qDebug()<< _yLlcenter <<"_yLlcenter";
+    //qDebug()<< _yLlcenter <<"_yLlcenter";
     datosMetTxt.insert("YLLCENTER",_yLlcenter);
 
     //Asignanar valor a la variable _nrows _cellsize
     QString distanciaVertices = outficheroAsci.readLine().replace("CELLSIZE  ","");
     distanciaVertices = distanciaVertices.trimmed();
     float _cellSize=distanciaVertices.toFloat();
-    qDebug()<< _cellSize <<"_cellSize";
+    //qDebug()<< _cellSize <<"_cellSize";
     datosMetTxt.insert("CELLSIZE",_cellSize);
 
     //Asignanar valor a la variable _nrows _noDataValue
@@ -72,7 +72,7 @@ QVariantMap ReadCoordinates_Txt::readFileMetTxt(QString pathFileTxtCoordenadas)
     noData = noData.trimmed();
     noData.simplified();
     int _noDataValue=noData.toInt();
-    qDebug()<< _noDataValue <<"_noDataValue";
+    //qDebug()<< _noDataValue <<"_noDataValue";
     datosMetTxt.insert("NODATAVALUE",_noDataValue);
 
 
@@ -89,11 +89,11 @@ QVariantMap ReadCoordinates_Txt::readFileMetTxt(QString pathFileTxtCoordenadas)
         {
             elemento="0";
         }
-        qDebug()<< elemento <<"uno por uno elemento";
+        //qDebug()<< elemento <<"uno por uno elemento";
         if(!elemento.size()==0)
         {
         _punteroZ=elemento.toFloat();
-        qDebug()<< _punteroZ <<"*_punteroZ";
+        //qDebug()<< _punteroZ <<"*_punteroZ";
         _listFloatZ << _punteroZ;
         }
     }

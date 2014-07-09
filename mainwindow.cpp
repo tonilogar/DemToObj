@@ -36,5 +36,5 @@ void MainWindow::on_pushButton_clicked()
     CreateObj obj;
 //fileTxt.readFileMetTxt("E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//COORDENADESDemToObjCompara.TXT");
 //qDebug()<< datosMetTxt.value("NODATAVALUE").toString();
-obj.createObj("E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//UV//COORDENADESTALLPETIT_10x5.TXT","E://public//TrabajosQT//repositoriosLocalesGit//catalunya_3D//UV//COORDENADESTALLPETIT_10x501.obj");
+obj.createObj("D://antonio//trabajos//programacion//folferOut//demToObj//COORDENADESTALLPETIT_10x5.TXT","D://antonio//trabajos//programacion//folferOut//demToObj//COORDENADESTALLPETIT_10x501.obj");
 }
